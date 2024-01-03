@@ -1,0 +1,38 @@
+ubuntu servere pip paketini yükleyelim 
+
+apt install pip
+
+pip install ping3
+
+pip install  influxdb
+
+/etc/pstatus/   konumuna oluşturalım
+
+
+--------------------------------
+vim /etc/systemd/system/pstatus.service  
+   
+oluşturulup aşağıdaki kısım eklenmeli  ve  ExecStrat yazan yere python3 ü ve dosyanın yolunu giriyoruz
+
+--------------------
+[Unit]
+Description=Psatatus-1.0
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/etc/pstatus/
+ExecStart=/usr/bin/python3 /etc/pstatus/pstatus.py
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+-----------------------
+
+ondan sonra pstatus adında bir servisimiz oluyor başlata bilriz
+
+NOTT: serviste değişiklik yapılırsa şu kod yazılmalı
+sudo systemctl daemon-reload
+
+ondan sonra service restart atılmalı
